@@ -7,7 +7,7 @@
 // @include       */overview-frame.html
 // ==/UserScript==
 //
-// version 0.1 (2012/04/03)
+// version 0.2 (2012/04/05)
 // author Joël THIEFFRY
 // http://jo.zerezo.com/projects/javadocInstantSearch.html
 // 
@@ -80,8 +80,22 @@
 			element.appendChild(typeRegex);
 			indexContainer.insertBefore(element, indexContainer.firstChild);
 
+			var searchTimeoutHandle = null;
+
+			// Handle the timeout for text input
+			setSearchTimeout = function() {
+				if (searchTimeoutHandle) {
+					clearTimeout(searchTimeoutHandle);
+				}
+				searchTimeoutHandle = setTimeout(runSearch, 200); // in milliseconds
+			}
+
 			// Run the search
 			runSearch = function() {
+				if (searchTimeoutHandle) {
+					clearTimeout(searchTimeoutHandle);
+					searchTimeoutHandle = null;
+				}
 				var acceptFunction = function() {
 					return true;
 				};
@@ -89,13 +103,16 @@
 					var regex = textInput.value;
 					//console.log("input  = " + regex);
 					var selectedTypeRegex = typeRegex.options[typeRegex.selectedIndex].value;
-					if (selectedTypeRegex == ECLIPSE_REGEX_ID) {
-						regex = "^.*" + regex.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1") +  ".*$";
-						regex = regex.replace(/([A-Z])/g, "\.\*$1");
-					} else if (selectedTypeRegex == SIMPLIFIED_REGEX_ID) {
-						// Escape all except ? and *
-						regex = regex.replace(/([.+^$[\]\\(){}|-])/g, "\\$1");
-						regex = "^.*" + regex.replace(/(?:\*)+/g, ".*").replace(/(?:\?)+/g, ".?") + ".*$";
+					switch (selectedTypeRegex) {
+						case ECLIPSE_REGEX_ID:
+							regex = "^.*" + regex.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1") +  ".*$";
+							regex = regex.replace(/([A-Z])/g, "\.\*$1");
+							break;
+						case SIMPLIFIED_REGEX_ID:
+							// Escape all except ? and *
+							regex = regex.replace(/([.+^$[\]\\(){}|-])/g, "\\$1");
+							regex = "^.*" + regex.replace(/(?:\*)+/g, ".*").replace(/(?:\?)+/g, ".") + ".*$";
+							break;
 					}
 					//console.log("before = " + regex);
 					regex = regex.replace(/((.[\*\?])+)(?=\2)/g, "")  // Replace successive x* and x? to only one
@@ -129,18 +146,30 @@
 					itemText = itemText.nodeValue;
 					liItem.style.display = acceptFunction(itemText) ? "" : "none";
 				}
+				
+				textInput.focus();
+			}
+
+			// Change the type of regex
+			changeRegexType = function() {
+				if (textInput.value != "") {
+					runSearch(); // will clear the timeout
+				}
 			}
 
 			// Erase the current input pattern
 			eraseSearch = function() {
-				textInput.value = "";
-				runSearch();
+				if (textInput.value != "") {
+					textInput.value = "";
+					runSearch(); // will clear the timeout
+				}
 			}
 
-			addEvent(textInput, "input", runSearch);
-			addEvent(typeRegex, "change", runSearch);
+			addEvent(textInput, "input", setSearchTimeout);
+			addEvent(typeRegex, "change", changeRegexType);
 			addEvent(eraseIcon, "click", eraseSearch);
 		}
+
 		textInput.focus();
 	}
 
