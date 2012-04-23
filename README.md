@@ -9,7 +9,7 @@ This Greasemonkey script adds Instant Search function to Javadoc class frame.
 Features
 --------
 * Three search pattern modes (choose in the selector):
- * Eclipse: search around capitals, for exemple ``NPException`` will show ``NullPointerException``.
+ * Eclipse: search around capitals, for exemple ``NPException`` will show ``NullPointerException`` (as in the [Eclipse IDE] Java's type search).
  * Simplified: ``?`` to replace one character, ``*`` to replace any number of characters, for example ``N???P*Exception``.
  * Regex: for real men, use a plain regex here, for example ``^.*C(li)*p+$``.
 * Pattern background becomes:
@@ -20,26 +20,33 @@ Features
 
 Download
 --------
-* on Userscripts.org: [userscripts.org][Userscripts]
-* local: [javadocInstantSearch.user.js][current]
+* on the [Userscripts.org][Userscripts] page
+* local copy: [javadocInstantSearch.user.js][current]
 
-For use in Firefox, you need to install the [Greasemonkey plugin]. Unless the variable ``greasemonkey.fileIsGreaseable`` is set to true in your ``about:config``, the script won't run on local files.
+For use in [Mozilla Firefox], you need to install the [Greasemonkey plugin]. Unless the variable ``greasemonkey.fileIsGreaseable`` is set to true in your ``about:config``, the script won't run on local files.
 
-In Chrome, userscripts support is native since Chrome v4.
+In [Google Chrome], userscripts support is native since Chrome v4.
 
 Timeline
 --------
-* Released [0.3 (2012/04/10)][v0.3]
-  * Added: support for old javadoc versions (see Implementation details).
-  * Fixed: minor fixes (set focus on startup only if successfully installed; new filename pattern).
 
-* Released [0.2 (2012/04/05)][v0.2]
-  * Fixed: simplified pattern mode was wrong interpreting ``?`` as "0 or 1 any character" instead of "1 any character".
-  * Added: 200-millisecond delay between input in pattern box and search run; this improves responsiveness while typing a pattern.
-  * Added: clicking on erase, or selecting of regex type, will then set focus on the pattern box.
+### Released [0.4 (2012/04/23)][v0.4]
+ * Fixed: heavy DOM manipulation caused massive slowdown and even stalled and crashed [Google Chrome]. As a side effect, also improved browser response.
+ * Fixed: regexes (improper escaping and bad patterns).
+ * Modified: Eclipse and Simplified search pattern modes are case-insensitive (as I found in [Eclipse IDE]).
+ * Modified: code checked through the excellent [JSHint].
 
-* Released [0.1 (2012/04/03)][v0.1]
-  * Initial version, written minimal documentation, uploaded to [userscripts.org][Userscripts].
+### Released [0.3 (2012/04/10)][v0.3]
+ * Added: support for old javadoc versions (see Implementation details).
+ * Fixed: minor fixes (set focus on startup only if successfully installed; new filename pattern).
+
+### Released [0.2 (2012/04/05)][v0.2]
+ * Fixed: simplified pattern mode was wrong interpreting ``?`` as "0 or 1 any character" instead of "1 any character".
+ * Added: 200-millisecond delay between input in pattern box and search run; this improves responsiveness while typing a pattern.
+ * Added: clicking on erase, or selecting of regex type, will then set focus on the pattern box.
+
+### Released [0.1 (2012/04/03)][v0.1]
+ * Initial version, written minimal documentation, uploaded to [userscripts.org][Userscripts] page.
 
 Rationale
 ---------
@@ -87,7 +94,7 @@ Implementation details
 * The search component is added as a first child of the element whose class is ``indexContainer``.
 
 * The regex transformation from Eclipse model to full regex follows these steps:
- 1. Neutralize all special caracters: ``regex.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1")``.
+ 1. Neutralize all special caracters: ``regex.replace(/([\\\^\$*+\[\]?{}.=!:(|)])/g, "\\$1")``.
  2. Prepend ``^.*`` and append ``.*$`` to allow search in any position.
  3. Prepend ``.*`` before all capital letters: ``regex.replace(/([A-Z])/g, "\.\*$1")``.
 
@@ -105,8 +112,13 @@ Implementation details
 [v0.1]: javadocInstantSearch-0.1.user.js
 [v0.2]: javadocInstantSearch-0.2.user.js
 [v0.3]: javadocInstantSearch-0.3.user.js
+[v0.4]: javadocInstantSearch-0.4.user.js
 [Joël Thieffry]: http://jo.zerezo.com
 [MIT licence]: http://www.opensource.org/licenses/mit-license.php
 [Userscripts]: http://userscripts.org/scripts/show/130074
 [Greasemonkey plugin]: https://addons.mozilla.org/fr/firefox/addon/greasemonkey/
 [Javadoc Incremental Search]: http://www.teria.com/~koseki/tools/gm/javadoc_isearch/index.html
+[Mozilla Firefox]: http://www.mozilla.org/firefox/
+[Google Chrome]: https://www.google.com/chrome
+[JSHint]: http://www.jshint.com/
+[Eclipse IDE]: http://www.eclipse.org/
