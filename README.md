@@ -109,7 +109,7 @@ Implementation details
                      .replace(/((.)\*\2\+)+/g, ".+")      // Replace x*x+ with x+
                      .replace(/((.[\*\?])+)(?=\2)/g, ""); // Replace successive x* and x? to only one
 
-[screenshot]: javadocInstantSearchScreenshot.png
+[screenshot]: https://raw.github.com/Nioub/JavadocSearch/master/javadocInstantSearchScreenshot.png
 [zerezo-current]: http://jo.zerezo.com/projects/javadocInstantSearch.user.js
 [current]: https://raw.github.com/Nioub/JavadocSearch/master/javadocInstantSearch.user.js
 [v0.3]: https://raw.github.com/Nioub/JavadocSearch/0.3/javadocInstantSearch.user.js
