@@ -20,8 +20,10 @@ Features
 
 Download
 --------
-* on the [Userscripts.org][Userscripts] page
-* local copy: [javadocInstantSearch.user.js][current]
+* from the [Userscripts page]
+* directly from [my website][zerezo-current]
+* directly from [GitHub.com]
+* fork it on the [GitHub page]
 
 For use in [Mozilla Firefox], you need to install the [Greasemonkey plugin]. Unless the variable ``greasemonkey.fileIsGreaseable`` is set to true in your ``about:config``, the script won't run on local files.
 
@@ -30,7 +32,7 @@ In [Google Chrome], userscripts support is native since Chrome v4.
 Timeline
 --------
 
-### Released [0.4 (2012/04/23)][v0.4]
+### Released [0.4 (2012/04/23)][current]
  * Fixed: heavy DOM manipulation caused massive slowdown and even stalled and crashed [Google Chrome]. As a side effect, also improved browser response.
  * Fixed: regexes (improper escaping and bad patterns).
  * Modified: Eclipse and Simplified search pattern modes are case-insensitive (as I found in [Eclipse IDE]).
@@ -108,17 +110,19 @@ Implementation details
                      .replace(/((.[\*\?])+)(?=\2)/g, ""); // Replace successive x* and x? to only one
 
 [screenshot]: javadocInstantSearchScreenshot.png
-[current]: javadocInstantSearch.user.js
-[v0.1]: javadocInstantSearch-0.1.user.js
-[v0.2]: javadocInstantSearch-0.2.user.js
-[v0.3]: javadocInstantSearch-0.3.user.js
-[v0.4]: javadocInstantSearch-0.4.user.js
+[zerezo-current]: http://jo.zerezo.com/projects/javadocInstantSearch.user.js
+[current]: https://raw.github.com/Nioub/JavadocSearch/master/javadocInstantSearch.user.js
+[v0.3]: https://raw.github.com/Nioub/JavadocSearch/0.3/javadocInstantSearch.user.js
+[v0.2]: https://raw.github.com/Nioub/JavadocSearch/0.2/javadocInstantSearch.user.js
+[v0.1]: https://raw.github.com/Nioub/JavadocSearch/0.1/javadocInstantSearch.user.js
 [Joël Thieffry]: http://jo.zerezo.com
 [MIT licence]: http://www.opensource.org/licenses/mit-license.php
-[Userscripts]: http://userscripts.org/scripts/show/130074
+[Userscripts page]: http://userscripts.org/scripts/show/130074
 [Greasemonkey plugin]: https://addons.mozilla.org/fr/firefox/addon/greasemonkey/
 [Javadoc Incremental Search]: http://www.teria.com/~koseki/tools/gm/javadoc_isearch/index.html
 [Mozilla Firefox]: http://www.mozilla.org/firefox/
 [Google Chrome]: https://www.google.com/chrome
 [JSHint]: http://www.jshint.com/
 [Eclipse IDE]: http://www.eclipse.org/
+[GitHub.com]: https://github.com/
+[GitHub page]: https://github.com/Nioub/JavadocSearch
