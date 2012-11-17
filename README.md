@@ -22,8 +22,7 @@ Download
 --------
 * from the [Userscripts page]
 * directly from [my website][zerezo-current]
-* directly from [GitHub.com]
-* fork it on the [GitHub page]
+* fork it from the [GitHub page]
 
 For use in [Mozilla Firefox], you need to install the [Greasemonkey plugin]. Unless the variable ``greasemonkey.fileIsGreaseable`` is set to true in your ``about:config``, the script won't run on local files.
 
@@ -32,7 +31,10 @@ In [Google Chrome], userscripts support is native since Chrome v4.
 Timeline
 --------
 
-### Released [0.4 (2012/04/23)][current]
+### Released [0.5 (2012/11/17)][current]
+ * Fixed: [Issue #1] Incorrect search on doubles. The real reason was a side effect of regex reuse, see [Regex/lastIndex - Unexpected behaviour on StackOverflow].
+
+### Released [0.4 (2012/04/23)][v0.4]
  * Fixed: heavy DOM manipulation caused massive slowdown and even stalled and crashed [Google Chrome]. As a side effect, also improved browser response.
  * Fixed: regexes (improper escaping and bad patterns).
  * Modified: Eclipse and Simplified search pattern modes are case-insensitive (as I found in [Eclipse IDE]).
@@ -112,6 +114,7 @@ Implementation details
 [screenshot]: https://raw.github.com/Nioub/JavadocSearch/master/javadocInstantSearchScreenshot.png
 [zerezo-current]: http://jo.zerezo.com/projects/javadocInstantSearch.user.js
 [current]: https://raw.github.com/Nioub/JavadocSearch/master/javadocInstantSearch.user.js
+[v0.4]: https://raw.github.com/Nioub/JavadocSearch/0.4/javadocInstantSearch.user.js
 [v0.3]: https://raw.github.com/Nioub/JavadocSearch/0.3/javadocInstantSearch.user.js
 [v0.2]: https://raw.github.com/Nioub/JavadocSearch/0.2/javadocInstantSearch.user.js
 [v0.1]: https://raw.github.com/Nioub/JavadocSearch/0.1/javadocInstantSearch.user.js
@@ -126,3 +129,5 @@ Implementation details
 [Eclipse IDE]: http://www.eclipse.org/
 [GitHub.com]: https://github.com/
 [GitHub page]: https://github.com/Nioub/JavadocSearch
+[Issue #1]: https://github.com/Nioub/JavadocSearch/issues/1
+[Regex/lastIndex - Unexpected behaviour on StackOverflow]: http://stackoverflow.com/questions/1534098/regex-lastindex-unexpected-behaviour

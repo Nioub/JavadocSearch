@@ -8,7 +8,7 @@
 // @include       */overview-frame.html
 // ==/UserScript==
 //
-// version 0.4 (2012/04/23)
+// version 0.5 (2012/11/17)
 // author Joël THIEFFRY
 // http://jo.zerezo.com/projects/javadocInstantSearch.html
 // 
@@ -162,6 +162,8 @@
 				}
 				textInput.style.backgroundColor = "Lavender";
 				acceptFunction = function(name) {
+					// Fix for Issue #1: reset the lastIndex in the regex for reuse
+					searchRegexp.lastIndex = 0;
 					return searchRegexp.test(name);
 				};
 			} else {
