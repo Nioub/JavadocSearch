@@ -77,7 +77,7 @@
 		eraseIcon.style.marginLeft = "3px";
 		eraseIcon.style.marginRight = "3px";
 
-		var isOverview = document.URL.match("/overview-frame\\.html$", "g") !== null;
+		var isOverview = document.URL.match("/overview-frame\\.html$", "") !== null;
 		var typeRegex = document.createElement("select");
 		typeRegex.size = 1;
 		typeRegex.multiple = false;
@@ -155,15 +155,13 @@
 							.replace(/((.[\*\?])+)(?=\2)/g, ""); // Replace successive x* and x? to only one
 				//console.log("after  = " + regex);
 				try {
-					var searchRegexp = new RegExp(regex, "g" + caseInvariantSwitch);
+					var searchRegexp = new RegExp(regex, caseInvariantSwitch);
 				} catch (err) {
 					textInput.style.backgroundColor = "Tomato";
 					return false;
 				}
 				textInput.style.backgroundColor = "Lavender";
 				acceptFunction = function(name) {
-					// Fix for Issue #1: reset the lastIndex in the regex for reuse
-					searchRegexp.lastIndex = 0;
 					return searchRegexp.test(name);
 				};
 			} else {
